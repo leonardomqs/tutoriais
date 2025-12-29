@@ -102,15 +102,16 @@ A importação reseta o usuário para `root`. Para corrigir:
 Embora o instalador do Docker Desktop coloque os arquivos de programa (binários) no Disco C: por padrão, o que realmente consome espaço e precisa de velocidade são as imagens e containers. Vamos configurar para que esse "motor" rode inteiramente no seu Dev Drive (D:).
 
 Siga este roteiro para garantir que o Docker aproveite o ReFS do seu Disco 0.
+### 3.1 Instalação 
 
-### Passo 1: Preparar o Terreno
+#### Passo 1: Preparar o Terreno
 Antes de instalar, vamos criar a pasta onde o "cérebro" do Docker vai morar.
 
 1. Abra o Explorador de Arquivos no seu **DevDrive (D:)**.
 2. Crie uma nova pasta chamada Docker.
    * Caminho final: D:\Docker
 
-### Passo 2: Instalação Padrão (mas com atenção)
+#### Passo 2: Instalação Padrão (mas com atenção)
 1. Baixe o **Docker Desktop for Windows** no site oficial.
 2. Execute o instalador.
 3. Tela de Configuração:
@@ -121,7 +122,7 @@ Antes de instalar, vamos criar a pasta onde o "cérebro" do Docker vai morar.
 
 Neste momento, o Docker estará rodando, mas ele criou o disco de dados dele no padrão (Disco C:). Não baixe nada ainda! Vamos movê-lo imediatamente.
 
-### Passo 3: O "Move" Estratégico (Levando para o Dev Drive)
+#### Passo 3: O "Move" Estratégico (Levando para o Dev Drive)
 Agora vamos dizer para o Docker: "Pare de usar o C: e use o meu ReFS no D:".
 
 1. Abra o **Docker Desktop** (aceite os termos, pule o login se quiser).
@@ -135,7 +136,7 @@ Agora vamos dizer para o Docker: "Pare de usar o C: e use o meu ReFS no D:".
 **O que acontece agora?** O Docker vai desligar o subsistema, pegar o arquivo de disco virtual (`ext4.vhdx`) que ele criou no C:, movê-lo fisicamente para o `D:\Docker` e ligar novamente.
    * **Ganho**: A partir de agora, quando você fizer um docker pull python, os gigabytes serão gravados no seu SSD Kingston (D:), usando a tecnologia de clonagem de blocos do ReFS.
 
-### Passo 4: Conectar com seu Ubuntu (Integração)
+#### Passo 4: Conectar com seu Ubuntu (Integração)
 O Docker roda isolado. Precisamos avisar que o seu **Ubuntu-24.04** tem permissão para usar o Docker.
 
 1. Ainda nas configurações (**Settings**) do Docker Desktop.
@@ -144,7 +145,7 @@ O Docker roda isolado. Precisamos avisar que o seu **Ubuntu-24.04** tem permiss�
 4. Logo abaixo, se aparecer a opção **Ubuntu-24.04**, ative a chave (switch) para deixá-la azul.
 5. Clique em **Apply & Restart**.
 
-### Passo 5: Teste Final (A Prova de Fogo)
+#### Passo 5: Teste Final (A Prova de Fogo)
 Vamos ver se toda essa arquitetura (Windows -> WSL -> Docker -> Dev Drive) está conversando.
 
 1. Abra seu terminal do **Ubuntu** (wsl).
@@ -163,7 +164,9 @@ Após reiniciar o computador, o Docker Desktop deve iniciar automaticamente (ou 
 
 **Pare!** ✋ Antes de rodar qualquer coisa, vamos fazer a configuração mais importante para salvar seu espaço e ganhar performance.
 
-### 1. Mover o "Motor" do Docker para o Dev Drive (D:)
+### 3.2 Movendo para o DevDrive
+
+#### 1. Mover o "Motor" do Docker para o DevDrive (D:)
 Por padrão, o Docker acabou de criar um arquivo de disco no seu C:. Vamos mudá-lo para o D: agora.
 
 1. Abra o **Docker Desktop**.
@@ -176,7 +179,7 @@ Por padrão, o Docker acabou de criar um arquivo de disco no seu C:. Vamos mudá
 
 *O Docker vai levar alguns segundos para mover o arquivo e reiniciar. Aguarde a luz verde no rodapé do aplicativo voltar.*
 
-### 2. Conectar o Docker ao seu Linux (WSL Integration)
+#### 2. Conectar o Docker ao seu Linux (WSL Integration)
 Agora o Docker está rodando no disco rápido, mas o seu Ubuntu ainda não sabe que pode usá-lo.
 
 1. Ainda nas Configurações (⚙️) do Docker Desktop.
@@ -186,7 +189,7 @@ Agora o Docker está rodando no disco rápido, mas o seu Ubuntu ainda não sabe 
 5. **Ative a chave (switch)** ao lado dele para ficar azul.
 6. Clique em **Apply & Restart**.
 
-### 3. O Teste Final (A Prova Real)
+#### 3. O Teste Final (A Prova Real)
 Agora vamos confirmar se tudo funcionou: Windows, Linux e Docker no disco de alta performance.
 
 1. Abra seu terminal do Ubuntu (digite `wsl` no PowerShell).
