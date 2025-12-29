@@ -339,10 +339,10 @@ Na aba de extensões, instale:
 
 ## 6. Resumo da Estrutura Final
 
-| Componente     | Localização Física                             | Tecnologia          |
-|---------------|-----------------------------------------------|---------------------|
-| Windows 11    | Disco C: (NVMe 1)                              | NTFS                |
-| Linux (Ubuntu)| `D:\WSL\ext4.vhdx`                           | ReFS (Dev Drive)    |
-| Docker Data   | `D:\Docker\disk.vhdx`                        | ReFS (Dev Drive)    |
-| Projetos/Git  | `\\wsl$\Ubuntu-24.04\home\seu_usuario`   | ReFS (Dev Drive)    |
-| Processamento | NVIDIA RTX 3050                                | CUDA (Pass-through) |
+| Componente    | Localização Física                      | Tecnologia          |
+|---------------|-----------------------------------------|---------------------|
+| Windows 11    | Disco C: (NVMe 1)                       | NTFS                |
+| Linux (Ubuntu)| `D:\WSL\ext4.vhdx`                      | ReFS (Dev Drive)    |
+| Docker Data   | `D:\Docker\disk.vhdx`                   | ReFS (Dev Drive)    |
+| Projetos/Git  | `\\wsl$\Ubuntu-24.04\home\seu_usuario`  | ReFS (Dev Drive)    |
+| Processamento | NVIDIA RTX 3050                         | CUDA (Pass-through) |
