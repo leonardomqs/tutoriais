@@ -331,8 +331,7 @@ Na aba de extensões, instale:
 2. No canto superior direito, clique em **Select Kernel**
 3. Escolha o kernel do Linux:
    ```
-   ai-lab (Python 3.10.x)
-/home/seu_usuario/miniconda3/envs/ai-lab/bin/python
+   ai-lab (Python 3.10.x) /home/seu_usuario/miniconda3/envs/ai-lab/bin/python
    ```
 
 ---
