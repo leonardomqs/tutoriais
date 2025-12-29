@@ -7,7 +7,7 @@ nivel: iniciante
 
 # Manual Completo: Estação de Trabalho de IA no Windows 11
 
-**Configuração de Alta Performance com Dev Drive, WSL2, Docker e GPU**
+**Configuração de Alta Performance com DevDrive, WSL2, Docker e GPU**
 
 **Autor:** Leonardo Garcia Marques
 
@@ -18,6 +18,42 @@ nivel: iniciante
 
 ## 1. Infraestrutura de Armazenamento (O Alicerce)
 O objetivo é garantir que toda a leitura/escrita pesada (IOPS) ocorra no sistema de arquivos **ReFS**, otimizado para desenvolvimento, poupando o disco do sistema (C:).
+
+Vamos partir da premissa de que temos um Disco **D:**, um NVMe secundário, enquanto o sistema está na unidade **C:** 
+
+#### Passo 1: Zerar o Disco 0 novamente (O "Undo")
+1. Abra o **Prompt de Comando (CMD)** ou PowerShell como **Administrador**.
+2. Digite ``diskpart`` e Enter.
+3. ``select disk 0`` (Confirme se é o de ~465GB).
+4. clean
+   * Pronto, as duas partições que você criou sumiram e o disco voltou a ser um bloco de espaço não alocado.
+5. ``exit``
+
+#### Passo 2: Criar o Dev Drive (Modo "Full Power")
+Agora, sem a divisão, vamos usar o espaço todo.
+
+1. Vá em **Configurações > Armazenamento > Discos e volumes** (aquela tela moderna).
+2. O Disco 0 vai aparecer como "Não inicializado". Inicialize-o como **GPT**.
+3. Clique em **"Criar Unidade de Desenvolvimento"**.
+4. Na hora de definir o tamanho, arraste a barra para o **máximo total** disponível.
+5. Defina a letra como **D:** (ou a que preferir) e o rótulo como "DevDrive".
+ ---
+
+#### E depois? (Otimização do Ambiente)
+Assim que você terminar de formatar esse "super disco", ele estará pronto. Como prometido, aqui está o que você deve fazer em seguida para garantir que o Python e seus projetos usem essa velocidade extra automaticamente:
+
+#### Mover os Caches do PIP e HuggingFace 
+Por padrão, o Python salva downloads temporários no seu disco C: (dentro de AppData). Vamos mudar isso para o D: para economizar espaço no sistema e ganhar velocidade.
+
+* Crie uma pasta D:\Cache e dentro dela D:\Cache\Pip e D:\Cache\HuggingFace.
+* No Windows, procure por "Editar as variáveis de ambiente do sistema".
+* Clique em "Variáveis de Ambiente".
+* Na parte de cima (Variáveis de usuário), clique em "Novo" e adicione:
+   * Nome: ``PIP_CACHE_DIR`` | Valor: ``D:\Cache\Pip``
+   * Nome: ``HF_HOME ``| Valor: ``D:\Cache\HuggingFace``
+
+Isso garante que, quando você baixar gigabytes de modelos ou bibliotecas, tudo vá direto para o seu disco rápido.
+
 
 ### 1.1. Configuração do Dev Drive
 1.  Acesse **Configurações > Sistema > Armazenamento > Configurações Avançadas > Discos e Volumes**.
