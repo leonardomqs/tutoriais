@@ -334,7 +334,7 @@ Na aba de extensões, instale:
    ai-lab (Python 3.10.x) /home/seu_usuario/miniconda3/envs/ai-lab/bin/python
    ```
 
----
+
 
 ## 6. Resumo da Estrutura Final
 
