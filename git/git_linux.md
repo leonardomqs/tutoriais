@@ -1,9 +1,9 @@
----
-titulo: Como configurar git no ambiente linux
+<!-- ---
+titulo: Configuração do git em ambiente linux
 tags: [git, linux, tutorial]
 data: 20225-12-30
 nivel: iniciante
----
+--- -->
 
 # CONFIGURAÇÃO DO GIT EM AMBIENTE LINUX
 
