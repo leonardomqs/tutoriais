@@ -1,8 +1,4 @@
-Aqui está o texto cru para copiar:
 
----
-
-````markdown
 # Tutorial: Instalação e Configuração do Doppler CLI (WSL Ubuntu 24.04)
 
 Este guia descreve como instalar o Doppler CLI no seu ambiente de desenvolvimento WSL (Ubuntu 24.04 Noble Numbat) para gerenciar segredos de forma segura.
@@ -61,4 +57,3 @@ Para que seus scripts personalizados funcionem de qualquer lugar, adicione sua p
 echo 'export PATH="$HOME/scripts:$PATH"' >> ~/.bashrc
 source ~/.bashrc
 ```
-````
