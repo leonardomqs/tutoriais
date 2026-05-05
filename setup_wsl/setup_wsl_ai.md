@@ -73,6 +73,8 @@ Instalação do Linux e migração física para o disco rápido.
 No PowerShell (Admin):
 ```powershell
 wsl --install
+```
+
 # Se a janela do Ubuntu não abrir, instale o "Ubuntu 24.04 LTS" pela Microsoft Store.
 
 
