@@ -1,11 +1,11 @@
-<!-- ---
-titulo: Configuração do git em ambiente linux
-tags: [git, linux, tutorial]
-data: 20225-12-30
+---
+titulo: "Configuração do Git em ambiente Linux"
+tags: [git, linux, ssh, github]
 nivel: iniciante
---- -->
+atualizado: 2025-12-30
+---
 
-# CONFIGURAÇÃO DO GIT EM AMBIENTE LINUX
+# Configuração do Git em ambiente Linux
 
 ## 1. Instalar o Git
 
@@ -99,7 +99,7 @@ ssh -T git@github.com
 
 Se tudo der certo, você verá algo como:
 
-```vbnet
+```text
 Hi seu-usuario! You've successfully authenticated, but GitHub does not provide shell access.
 ```
 

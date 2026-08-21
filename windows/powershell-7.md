@@ -1,3 +1,10 @@
+---
+titulo: "Instalação do PowerShell 7"
+tags: [windows, powershell, terminal]
+nivel: iniciante
+atualizado: 2026-01-09
+---
+
 # Instalação do PowerShell 7
 
 O Windows vem com o **Windows PowerShell 5.1** (o "clássico", de fundo azul). Ele é um produto "legado" que não recebe mais novos recursos, apenas correções de segurança.
@@ -30,7 +37,7 @@ Instalar o PowerShell 7 não substitui nem remove o Windows PowerShell 5.1.
 
 Não precisa ir no site baixar o `.msi.` Como você está no Windows 11, o jeito mais limpo é usar o gerenciador de pacotes (`winget`) no seu terminal atual:
 
-```PowerShell
+```powershell
 winget install Microsoft.PowerShell
 ```
 

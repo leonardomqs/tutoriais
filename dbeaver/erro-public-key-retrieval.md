@@ -1,4 +1,11 @@
-# 🐛 Troubleshooting: Erro de Conexão MySQL 8 (DBeaver)
+---
+titulo: "Erro: Public Key Retrieval is not allowed (MySQL 8 no DBeaver)"
+tags: [dbeaver, mysql, docker, erro]
+nivel: intermediario
+atualizado: 2026-01-04
+---
+
+# Erro: Public Key Retrieval is not allowed (MySQL 8 no DBeaver)
 
 Ao tentar conectar no MySQL 8 rodando via Docker, é comum receber o erro:
 > *"Public Key Retrieval is not allowed"*

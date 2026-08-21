@@ -1,7 +1,14 @@
-# Clonando imagem WSL para estudos
+---
+titulo: "Clonar uma distro WSL para estudos"
+tags: [wsl, windows, backup]
+nivel: intermediario
+atualizado: 2026-01-09
+---
+
+# Clonar uma distro WSL para estudos
 
 ## 1. Checando imagens existentes
-```PowerShell
+```powershell
 wsl --list --verbose
 ```
 
@@ -11,7 +18,7 @@ wsl --list --verbose
 
 Esse comando resultará em algo assim:
 
-```Plaintext
+```text
  NAME              STATE           VERSION
 * Ubuntu-24.04      Stopped         2
   docker-desktop    Stopped         2
@@ -25,7 +32,7 @@ Esse comando resultará em algo assim:
 
 Agora que você tem o nome (vamos supor que seja `Ubuntu-24.04`), você substitui ele no comando de exportação.
 
-```PowerShell
+```powershell
 wsl --export Ubuntu-24.04 "D:\WSL\backup_base.tar"
 ```
 
@@ -40,14 +47,14 @@ E logo em seguida rodar o comando de exportação.
 ## 4. Criação da nova distro
 
 ### 1. Crie a pasta de destino
-```PowerShell
+```powershell
 mkdir "D:\WSL\Ubuntu-Labs"
 ```
 
 ### 2. Importe a Distro
 Agora, vamos importar o backup para essa nova pasta com o nome que você escolheu. *Atenção aos caminhos: verifique se o arquivo `.tar` está mesmo no local indicado abaixo.*
 
-```PowerShell
+```powershell
 wsl --import Ubuntu-Labs "D:\WSL\Ubuntu-Labs" "D:\WSL\backup_base.tar"
 ```
 
@@ -89,13 +96,13 @@ Por padrão, distros importadas logam como **root**. Para voltar a usar seu usu�
 
 Para saber em qual instalação você se encontra, basta utilizar
 
-```Bash
+```bash
 echo $WSL_DISTRO_NAME
 ```
 
 Se você quiser ver detalhes sobre a versão do Linux em si (para confirmar se é Ubuntu, Debian, etc), use:
 
-```Bash
+```bash
 cat /etc/os-release
 ```
 

@@ -1,4 +1,11 @@
-# Insync no Linux — Documentação de Uso e Configuração
+---
+titulo: "Insync no Linux: configuração e resolução de conflitos"
+tags: [insync, linux, onedrive, sincronizacao]
+nivel: intermediario
+atualizado: 2025-12-30
+---
+
+# Insync no Linux: configuração e resolução de conflitos
 
 ## 1. O que é o Insync
 O Insync é um cliente de sincronização nativo para Linux que permite integrar

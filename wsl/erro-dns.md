@@ -1,11 +1,18 @@
-# Solução: Erro de DNS no WSL (Sem Conexão)
+---
+titulo: "Erro: Temporary failure in name resolution no WSL"
+tags: [wsl, rede, dns, erro]
+nivel: intermediario
+atualizado: 2026-01-03
+---
+
+# Erro: `Temporary failure in name resolution` no WSL
 
 **Data:** 03/01/2026
 **Erro:** `Temporary failure in name resolution`
 **Sintoma:** O ping funciona para IPs numéricos, mas falha para nomes de domínio.
 
 ## Evidência
-![Terminal mostrando falha no ping para google.com mas sucesso para 8.8.8.8](images/erro_dns.png)
+![Terminal mostrando falha no ping para google.com mas sucesso para 8.8.8.8](assets/erro-dns.png)
 
 ## Diagnóstico
 O WSL consegue se conectar à internet (provado pelo ping no `8.8.8.8`), mas não consegue traduzir URLs. Isso ocorre porque o WSL recria o arquivo `/etc/resolv.conf` a cada inicialização, muitas vezes herdando configurações incompatíveis do adaptador de rede do Windows.

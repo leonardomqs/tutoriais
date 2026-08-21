@@ -1,8 +1,19 @@
-# Guia Definitivo: Modern Python Packaging com pyproject.toml
+---
+titulo: "pyproject.toml: workflow completo, do projeto ao deploy"
+tags: [python, pyproject, uv, docker, ci-cd]
+nivel: avancado
+atualizado: 2026-01-19
+---
 
-**Autor:** Arquiteto de Software Sênior (Python Expert)
-**Foco:** Modern Python Packaging, DevEx, PEP 621
-**Público-alvo:** Desenvolvedores Plenos/Seniores migrando de `setup.py`/`requirements.txt`.
+# `pyproject.toml`: workflow completo, do projeto ao deploy
+
+Do arquivo de configuração até a imagem em produção: metadados PEP 621, configuração
+centralizada de ferramentas, pipeline no GitHub Actions com `uv`, `Dockerfile` multi-stage
+e orquestração local com Docker Compose.
+
+> **Público-alvo:** quem está migrando de `setup.py` / `requirements.txt`.
+> Para a fundamentação das PEPs e a comparação entre backends de build, veja
+> [fundamentos e referência](pyproject-toml-fundamentos.md).
 
 ---
 
@@ -237,7 +248,7 @@ uv lock
 
 Crie o arquivo `.github/workflows/ci.yml`. Este pipeline usa a action oficial da Astral para instalar o `uv`, gerenciar cache e executar as ferramentas configuradas no seu `pyproject.toml`.
 
-```YAML
+```yaml
 name: Quality Gate
 
 on:
@@ -381,7 +392,7 @@ CMD ["python", "-m", "core_analise.main"]
 
 Para garantir que o BuildKit ative os mounts de cache:
 
-```Bash
+```bash
 docker build -t meu-projeto:latest .
 ```
 
@@ -405,7 +416,7 @@ DATABASE_URL=postgresql://admin:segredo_super_seguro@db:5432/app_db
 
 Crie o arquivo `compose.yml` na raiz. Note o uso de **Healthchecks**. Isso resolve aquele problema clássico da aplicação tentar conectar no banco antes dele estar pronto e "quebrar" na inicialização.
 
-```YAML
+```yaml
 services:
   # ----------------------------------------------------------------
   # SERVIÇO DE BANCO DE DADOS (Postgres)
@@ -450,7 +461,7 @@ volumes:
 
 1. **Subir o ambiente:**
 
-```Bash
+```bash
 docker compose up --build
 ```
 
@@ -458,7 +469,7 @@ O `--build` força a recriação da imagem caso você tenha mudado dependências
 
 2. **Derrubar e limpar volumes (Reset total):**
 
-```Bash
+```bash
 docker compose down -v
 ```
 

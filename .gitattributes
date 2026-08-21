@@ -1,0 +1,19 @@
+# Normaliza finais de linha: LF no repositório, nativo no working tree.
+# Evita diffs de arquivo inteiro quando o mesmo arquivo é editado no Windows e no WSL.
+* text=auto
+
+*.md        text
+*.toml      text
+*.yml       text
+*.yaml      text
+*.json      text
+*.sh        text eol=lf
+*.ps1       text eol=crlf
+
+# Binários: nunca converter
+*.png       binary
+*.jpg       binary
+*.jpeg      binary
+*.gif       binary
+*.webp      binary
+*.pdf       binary

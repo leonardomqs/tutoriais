@@ -1,13 +1,20 @@
-# Registro de Solução: Diagnóstico de Erros de Entrada do Conda no WSL
+---
+titulo: "Erro: Error while loading conda entry point no WSL"
+tags: [wsl, conda, python, erro]
+nivel: intermediario
+atualizado: 2026-01-02
+---
 
-**Data:** 16 de Outubro de 2023
+# Erro: `Error while loading conda entry point` no WSL
+
+**Data:** 02/01/2026
 **Contexto:** Configuração inicial do ambiente de desenvolvimento híbrido (Windows + WSL2).
 
 ## O Cenário Inicial
 
 Durante o primeiro acesso ao terminal Linux (Ubuntu via WSL) a partir do PowerShell, o ambiente Conda pré-instalado apresentou erros na inicialização, conforme capturado na imagem abaixo:
 
-![Captura de tela do terminal mostrando a transição para o WSL e erros vermelhos do Conda](terminal_erro_wsl.png)
+![Captura de tela do terminal mostrando a transição para o WSL e erros vermelhos do Conda](assets/erro-conda-entry-points.png)
 
 ## Análise do Problema
 

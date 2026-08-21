@@ -1,19 +1,17 @@
 ---
-titulo: Como configurar um servidor Linux
-tags: [linux, servidor, devops, tutorial]
-data: 2023-10-27
-nivel: iniciante
+titulo: "Estação de trabalho de IA no Windows 11"
+tags: [wsl, windows, docker, gpu, cuda, dev-drive]
+nivel: avancado
+atualizado: 2026-05-05
 ---
 
-# Manual Completo: Estação de Trabalho de IA no Windows 11
+# Estação de trabalho de IA no Windows 11
 
-**Configuração de Alta Performance com DevDrive, WSL2, Docker e GPU**
+Configuração de alta performance com **Dev Drive (ReFS)**, **WSL2**, **Docker** e **GPU NVIDIA**.
 
-**Autor:** Leonardo Garcia Marques
+> **Hardware de referência:** notebook com NVMe secundário e NVIDIA RTX 3050.
+> **Ambiente validado:** Windows 11 Pro + Ubuntu 24.04 LTS.
 
-**Data:** Dezembro de 2025
-
-**Hardware:** Notebook com NVMe Secundário e NVIDIA RTX 3050.
 ---
 
 ## 1. Infraestrutura de Armazenamento (O Alicerce)
@@ -167,7 +165,7 @@ Agora vamos dizer para o Docker: "Pare de usar o C: e use o meu ReFS no D:".
 2. Clique no ícone de **Engrenagem** (Settings) no topo direito.
 3. No menu lateral, vá em *Resources*.
 4. Procure a seção **Disk image location**.
-   * Você verá que ele está apontando para `C:\Users\leonardo\AppData...`.
+   * Você verá que ele está apontando para `C:\Users\<seu_usuario>\AppData...`.
 5. Clique em **Browse** e selecione aquela pasta que criamos: D:\Docker.
 6. Clique no botão **Apply & Restart**.
 
@@ -211,7 +209,7 @@ Por padrão, o Docker acabou de criar um arquivo de disco no seu C:. Vamos mudá
 2. Clique na **Engrenagem** ⚙️ (Settings) no canto superior direito.
 3. No menu lateral esquerdo, clique em **Resources**.
 4. Procure a opção **"Disk image location".**
-5. Ela deve estar mostrando algo como C:\Users\leonardo\AppData....
+5. Ela deve estar mostrando algo como `C:\Users\<seu_usuario>\AppData...`.
 6. Clique no botão **Browse** e selecione a pasta D:\Docker (se você não criou essa pasta ainda, crie agora dentro do seu DevDrive).
 7. Clique em **Apply & Restart**.
 

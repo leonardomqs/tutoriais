@@ -1,5 +1,12 @@
+---
+titulo: "Doppler CLI no WSL: instalação e configuração"
+tags: [doppler, wsl, segredos, cli]
+nivel: iniciante
+atualizado: 2026-04-10
+---
 
-# Tutorial: Instalação e Configuração do Doppler CLI (WSL Ubuntu 24.04)
+
+# Doppler CLI no WSL: instalação e configuração
 
 Este guia descreve como instalar o Doppler CLI no seu ambiente de desenvolvimento WSL (Ubuntu 24.04 Noble Numbat) para gerenciar segredos de forma segura.
 

@@ -1,3 +1,19 @@
+---
+titulo: "pyproject.toml: fundamentos e referência"
+tags: [python, pyproject, empacotamento, pep]
+nivel: intermediario
+atualizado: 2026-01-19
+---
+
+# `pyproject.toml`: fundamentos e referência
+
+Como o empacotamento moderno de Python funciona por baixo — as PEPs que definem o formato,
+a escolha do backend de build, os metadados de `[project]` e a centralização das configs
+de ferramentas. Para o ciclo de entrega (CI, Docker, Compose), veja
+[workflow completo](pyproject-toml-workflow-completo.md).
+
+---
+
 ## 0) Modelo mental: o que é “pyproject.toml” hoje
 
 `pyproject.toml` virou o **ponto central** porque separa claramente:

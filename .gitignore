@@ -1,0 +1,31 @@
+# --- Sistema operacional ---
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+._*
+
+# --- Editores ---
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
+*.code-workspace
+*.swp
+*.swo
+*~
+
+# --- Rascunhos e temporários ---
+*.tmp
+*.bak
+*.orig
+_rascunhos/
+
+# --- Arquivos que NUNCA devem ser commitados aqui ---
+# Este repositório é só documentação: nada de segredo entra.
+.env
+.env.*
+*.key
+*.pem
+*.pfx

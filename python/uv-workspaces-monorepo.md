@@ -1,4 +1,11 @@
-# Guia Definitivo: Monorepo Python Moderno com `uv` e `Ruff`
+---
+titulo: "Monorepo Python com uv e Ruff"
+tags: [python, uv, ruff, monorepo, fastapi]
+nivel: avancado
+atualizado: 2026-01-16
+---
+
+# Monorepo Python com `uv` e Ruff
 
 Este guia documenta a criação de uma arquitetura Monorepo escalável para Python, abandonando o gerenciamento tradicional (Conda/Pip) em favor da velocidade e dos recursos de **Workspaces** do `uv`.
 
