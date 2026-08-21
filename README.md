@@ -1,17 +1,19 @@
 # 📚 Tutoriais
 
-Tutoriais práticos, em português, sobre como montar e manter um ambiente de
-desenvolvimento — **Windows 11, WSL2, Python, Docker, Git e ferramentas de dados**.
+Tutoriais em português sobre as ferramentas do trabalho técnico e de pesquisa — **incluindo
+os erros que aparecem no caminho**.
 
-Todo passo a passo daqui foi executado de verdade antes de virar texto, em máquina real e
-não em teoria. Isso vale principalmente para as notas de erro: cada uma registra um
-problema que apareceu, o diagnóstico e o que efetivamente resolveu — incluindo o motivo,
-que é a parte que costuma faltar quando você acha a resposta num fórum.
+Vai do ambiente de desenvolvimento (Windows, WSL2, Python, Docker, Git) até a publicação do
+resultado, com DOI e reprodutibilidade auditável. Todo passo a passo daqui foi executado de
+verdade antes de virar texto, em máquina real e não em teoria. Isso vale principalmente para
+as notas de erro: cada uma registra um problema que apareceu, o diagnóstico e o que
+efetivamente resolveu — incluindo o motivo, que é a parte que costuma faltar quando você
+acha a resposta num fórum.
 
-**Para quem é:** estudantes, orientandos de iniciação científica e qualquer pessoa
-montando esse tipo de ambiente pela primeira vez. Não é necessário conhecimento prévio de
-Linux ou de linha de comando para começar — os tutoriais indicam o nível no cabeçalho e os
-pré-requisitos logo na abertura.
+**Para quem é:** estudantes, orientandos de iniciação científica e qualquer pessoa montando
+esse tipo de ambiente pela primeira vez. Não é necessário conhecimento prévio de Linux ou de
+linha de comando para começar — os tutoriais indicam o nível no cabeçalho e os pré-requisitos
+logo na abertura.
 
 **Como usar:** se você tem um objetivo maior ("montar minha máquina do zero"), comece pelas
 [trilhas](#-trilhas-sugeridas). Se está com um erro na tela agora, vá direto para
@@ -65,6 +67,13 @@ exatamente onde o texto falhou.
 | --- | --- |
 | [DBeaver — configuração inicial](dbeaver/configuracao-inicial.md) | Excluir o DBeaver do Defender (performance) e desligar a telemetria. |
 
+### 🔬 Pesquisa e publicação
+
+| Tutorial | Sobre |
+| --- | --- |
+| [Publicar dataset e código no Zenodo](zenodo/publicar-dataset-e-codigo.md) | Depósito com DOI, de graça: conceitos (Concept vs. Version DOI, licença, embargo), preparo do pacote, e arquivamento automático de releases do GitHub. |
+| [Preparar a submissão do artigo](zenodo/preparar-submissao-do-artigo.md) | Declaração de disponibilidade de dados, referência IEEE, script de reprodução e auditoria *clean-room* antes de submeter. |
+
 ### 🧰 Ferramentas
 
 | Tutorial | Sobre |
@@ -107,6 +116,16 @@ Ordem recomendada quando o objetivo é maior que um tutorial só.
 2. [Monorepo com `uv` e Ruff](python/uv-workspaces-monorepo.md) — organizar `apps/` e `libs/`.
 3. [CI e Docker com `uv`](python/ci-e-docker-com-uv.md) — automatizar a qualidade e empacotar para deploy.
 4. [Doppler CLI no WSL](doppler/instalacao-cli-wsl.md) — tirar os segredos do código.
+
+</details>
+
+<details>
+<summary><b>Publicar os dados e o código da sua pesquisa</b></summary>
+
+1. [Configurar Git no Linux com SSH](git/configuracao-linux-ssh.md) — o repositório público é a base do arquivamento.
+2. [`pyproject.toml` — fundamentos](python/pyproject-toml-fundamentos.md) — ambiente pinado, sem o qual não há reprodução.
+3. [Publicar dataset e código no Zenodo](zenodo/publicar-dataset-e-codigo.md) — os dois depósitos, com DOI.
+4. [Preparar a submissão do artigo](zenodo/preparar-submissao-do-artigo.md) — citação, script de reprodução e auditoria.
 
 </details>
 

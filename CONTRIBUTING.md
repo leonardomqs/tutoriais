@@ -38,8 +38,9 @@ um que mistura cinco assuntos, não.
 cp _template/tutorial.md <assunto>/<nome-do-tutorial>.md
 ```
 
-Se o assunto ainda não existe, crie a pasta. Uma pasta nova se justifica a partir do
-**segundo** arquivo sobre o mesmo tema — antes disso, o arquivo cabe numa pasta existente.
+Se o assunto ainda não existe, crie a pasta — **uma pasta por assunto desde o primeiro
+arquivo**. É o que mantém o caminho previsível (`zenodo/`, `doppler/`, `windows/`) e evita
+que o arquivo fique escondido dentro de uma pasta que não tem a ver com ele.
 
 ## 2. Nomear
 
