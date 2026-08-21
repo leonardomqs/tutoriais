@@ -1,16 +1,35 @@
 # 📚 Tutoriais
 
-Caderno de anotações técnicas de **Leonardo Garcia Marques**.
+Tutoriais práticos, em português, sobre como montar e manter um ambiente de
+desenvolvimento — **Windows 11, WSL2, Python, Docker, Git e ferramentas de dados**.
 
-Cada arquivo aqui é um passo a passo que já foi executado de verdade — configuração de
-ambiente, ferramenta nova, ou a solução de um erro que custou tempo. A ideia é simples:
-**resolveu uma vez, documenta; da próxima, é só consultar.**
+Todo passo a passo daqui foi executado de verdade antes de virar texto, em máquina real e
+não em teoria. Isso vale principalmente para as notas de erro: cada uma registra um
+problema que apareceu, o diagnóstico e o que efetivamente resolveu — incluindo o motivo,
+que é a parte que costuma faltar quando você acha a resposta num fórum.
 
-> Tudo em português, focado em **Windows 11 + WSL2 + Python + dados**.
+**Para quem é:** estudantes, orientandos de iniciação científica e qualquer pessoa
+montando esse tipo de ambiente pela primeira vez. Não é necessário conhecimento prévio de
+Linux ou de linha de comando para começar — os tutoriais indicam o nível no cabeçalho e os
+pré-requisitos logo na abertura.
+
+**Como usar:** se você tem um objetivo maior ("montar minha máquina do zero"), comece pelas
+[trilhas](#-trilhas-sugeridas). Se está com um erro na tela agora, vá direto para
+[resolvendo um erro](#-resolvendo-um-erro) e busque pela mensagem.
+
+Encontrou algo errado, desatualizado ou confuso? [Abra uma issue][issues] — correção de
+tutorial é contribuição bem-vinda, e a dúvida de quem está chegando costuma apontar
+exatamente onde o texto falhou.
+
+[issues]: https://github.com/leonardomqs/tutoriais/issues
 
 ---
 
 ## 🗂️ Índice
+
+> ⚙️ marca tutoriais validados em uma configuração de hardware específica (segundo NVMe,
+> GPU NVIDIA). O passo a passo continua valendo sem isso — apenas as seções de Dev Drive e
+> de GPU é que dependem do equipamento.
 
 ### 🖥️ Windows & Terminal
 
@@ -22,7 +41,7 @@ ambiente, ferramenta nova, ou a solução de um erro que custou tempo. A ideia �
 
 | Tutorial | Sobre |
 | --- | --- |
-| [Estação de trabalho de IA](wsl/estacao-de-trabalho-ia.md) | Guia longo, do zero: Dev Drive (ReFS), WSL2 no disco rápido, Docker Desktop, Miniconda + PyTorch com GPU e VS Code remoto. |
+| [Estação de trabalho de IA](wsl/estacao-de-trabalho-ia.md) ⚙️ | Guia longo, do zero: Dev Drive (ReFS), WSL2 no disco rápido, Docker Desktop, Miniconda + PyTorch com GPU e VS Code remoto. |
 | [Clonar uma distro WSL](wsl/clonar-distro.md) | `wsl --export` / `--import` para criar um ambiente de laboratório isolado, sem sujar o ambiente de trabalho. |
 
 ### 🐍 Python
@@ -125,7 +144,18 @@ tutoriais/
 
 ---
 
-## ➕ Adicionando um tutorial
+## 🤝 Contribuindo
+
+Contribuições são bem-vindas, das menores às maiores:
+
+| Você encontrou | O que fazer |
+| --- | --- |
+| Um comando que não funciona mais, ou um passo que mudou de lugar | [Abra uma issue][issues] dizendo qual tutorial e o que aconteceu |
+| Um trecho confuso, ou um pré-requisito que faltou | [Abra uma issue][issues] — se travou em você, vai travar em outra pessoa |
+| Um erro que você resolveu e não está documentado aqui | Abra um PR com a nota, ou uma issue descrevendo o problema e a solução |
+| Um tutorial inteiro para somar | Abra um PR seguindo o [CONTRIBUTING.md](CONTRIBUTING.md) |
+
+Para escrever um tutorial novo, comece pelo template:
 
 ```bash
 cp _template/tutorial.md <assunto>/<nome-do-tutorial>.md
@@ -134,7 +164,7 @@ cp _template/tutorial.md <assunto>/<nome-do-tutorial>.md
 Preencha o *front matter*, escreva o conteúdo e **adicione a linha correspondente no índice
 acima** — o README é o mapa; um tutorial fora dele é um tutorial perdido.
 
-O passo a passo completo, com o padrão de escrita, está em [CONTRIBUTING.md](CONTRIBUTING.md).
+O padrão completo de nomes, escrita e imagens está em [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 

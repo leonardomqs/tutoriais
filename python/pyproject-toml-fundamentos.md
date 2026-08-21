@@ -231,7 +231,7 @@ Exemplos de uso com `uv` (prático, sem mágica):
 
 ---
 
-## 6) Exemplo “full-stack”: um `pyproject.toml` que eu usaria em projeto grande
+## 6) Exemplo “full-stack”: um `pyproject.toml` para projeto grande
 
 ```toml
 # -------------------------

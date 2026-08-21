@@ -1,8 +1,34 @@
-# Como adicionar ou editar um tutorial
+# Como contribuir
 
 Este repositório cresce por acúmulo: toda vez que uma configuração dá trabalho ou um erro
 custa tempo, vira um arquivo aqui. Para que ele continue navegável depois de 50 arquivos,
 o padrão abaixo precisa ser seguido.
+
+Contribuições de fora são bem-vindas — inclusive, e principalmente, as pequenas.
+
+## Antes de tudo: você não precisa escrever um tutorial
+
+A contribuição mais valiosa costuma ser a mais simples. Se um comando não funcionou, um
+passo mudou de lugar na interface, ou um trecho ficou confuso, **abra uma issue**. Quem
+está aprendendo enxerga as lacunas que quem escreveu não consegue mais ver.
+
+Ao abrir uma issue, ajuda muito incluir:
+
+- Qual tutorial e qual seção.
+- O que você esperava que acontecesse e o que aconteceu.
+- A mensagem de erro literal, se houve uma.
+- Seu sistema e as versões envolvidas (`wsl --version`, `python --version`, etc.).
+
+## Enviando um pull request
+
+1. Faça um *fork* do repositório.
+2. Crie uma branch com nome descritivo: `git switch -c corrige-dns-wsl`.
+3. Faça as alterações seguindo o padrão das seções abaixo.
+4. Abra o PR explicando **o que mudou e por quê**. Se for correção, diga como você
+   confirmou que a versão nova funciona.
+
+Não há CI neste repositório: a revisão é manual. Um PR pequeno e focado é revisado rápido;
+um que mistura cinco assuntos, não.
 
 ---
 
