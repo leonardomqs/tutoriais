@@ -18,7 +18,9 @@ A forma recomendada é usar o script oficial do Doppler, que gerencia automatica
 curl -Ls --tlsv1.2 --proto "=https" --retry 3 https://cli.doppler.com/install.sh | sudo sh
 ```
 
-> **Nota:** Versões anteriores deste tutorial usavam o método manual de adicionar a chave GPG e o repositório APT separadamente. Esse método está desatualizado — a URL da chave (`packages.doppler.com/public/cli/gpg...`) retorna 404. Use exclusivamente o script acima.
+> ⚠️ Não use o método manual de adicionar a chave GPG e o repositório APT separadamente,
+> que ainda circula em tutoriais antigos: a URL da chave (`packages.doppler.com/public/cli/gpg...`)
+> retorna **404**. Use exclusivamente o script acima.
 
 Após a instalação, confirme que o CLI está disponível:
 

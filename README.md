@@ -30,7 +30,7 @@ ambiente, ferramenta nova, ou a solução de um erro que custou tempo. A ideia �
 | Tutorial | Sobre |
 | --- | --- |
 | [`pyproject.toml` — fundamentos](python/pyproject-toml-fundamentos.md) | As PEPs (517/518/621/735), escolha de backend de build, metadados, versionamento por tag Git e centralização de configs (Ruff, pytest, mypy). |
-| [`pyproject.toml` — workflow completo](python/pyproject-toml-workflow-completo.md) | O mesmo terreno **mais** o ciclo de entrega: GitHub Actions com `uv`, `Dockerfile` multi-stage e Docker Compose com healthcheck. |
+| [CI e Docker com `uv`](python/ci-e-docker-com-uv.md) | O que vem depois do TOML: `uv.lock`, GitHub Actions, `Dockerfile` multi-stage com cache mount e Docker Compose com healthcheck. |
 | [Monorepo com `uv` e Ruff](python/uv-workspaces-monorepo.md) | Workspaces do `uv`: um `uv.lock` e um `.venv` para vários `apps/` e `libs/`, com formatação automática no VS Code. |
 
 ### 🔀 Git
@@ -86,7 +86,7 @@ Ordem recomendada quando o objetivo é maior que um tutorial só.
 
 1. [`pyproject.toml` — fundamentos](python/pyproject-toml-fundamentos.md) — entender o formato antes de copiar template.
 2. [Monorepo com `uv` e Ruff](python/uv-workspaces-monorepo.md) — organizar `apps/` e `libs/`.
-3. [`pyproject.toml` — workflow completo](python/pyproject-toml-workflow-completo.md) — CI, Docker e Compose.
+3. [CI e Docker com `uv`](python/ci-e-docker-com-uv.md) — automatizar a qualidade e empacotar para deploy.
 4. [Doppler CLI no WSL](doppler/instalacao-cli-wsl.md) — tirar os segredos do código.
 
 </details>

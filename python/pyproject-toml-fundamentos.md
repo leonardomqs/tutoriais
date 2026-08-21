@@ -2,7 +2,7 @@
 titulo: "pyproject.toml: fundamentos e referência"
 tags: [python, pyproject, empacotamento, pep]
 nivel: intermediario
-atualizado: 2026-01-19
+atualizado: 2026-08-21
 ---
 
 # `pyproject.toml`: fundamentos e referência
@@ -10,7 +10,7 @@ atualizado: 2026-01-19
 Como o empacotamento moderno de Python funciona por baixo — as PEPs que definem o formato,
 a escolha do backend de build, os metadados de `[project]` e a centralização das configs
 de ferramentas. Para o ciclo de entrega (CI, Docker, Compose), veja
-[workflow completo](pyproject-toml-workflow-completo.md).
+[CI e Docker com uv](ci-e-docker-com-uv.md).
 
 ---
 
@@ -138,7 +138,7 @@ local_scheme = "no-local-version"
 
 ---
 
-## 4) Centralização de configs (a “killer feature”)
+## 4) Centralização de configs
 
 A regra: ferramenta *X* lê `pyproject.toml` em `[tool.X]` (ou variação). Isso elimina `.flake8`, `setup.cfg`, `pytest.ini`, `mypy.ini` espalhados.
 
@@ -164,11 +164,12 @@ indent-style = "space"
 
 ### Pytest
 
-Pytest suporta `pyproject.toml`; desde pytest 9 dá pra usar `[tool.pytest]` com tipos TOML nativos.
+Pytest lê a configuração de `pyproject.toml` na tabela `[tool.pytest.ini_options]`. Esse é
+o formato que funciona em qualquer versão a partir do pytest 6 — use este por padrão:
 
 ```toml
-[tool.pytest]
-minversion = "9.0"
+[tool.pytest.ini_options]
+minversion = "8.0"
 addopts = ["-ra", "--strict-config", "--strict-markers"]
 testpaths = ["tests"]
 xfail_strict = true
@@ -176,6 +177,15 @@ filterwarnings = [
   "error",
 ]
 ```
+
+> ⚠️ O nome da tabela é `ini_options`, e não `[tool.pytest]`, porque historicamente os
+> valores eram interpretados como INI (tudo string). Versões recentes do pytest passaram a
+> aceitar também `[tool.pytest]` com tipos TOML nativos — confirme o suporte na versão que
+> você tem (`pytest --version`) antes de trocar, porque a tabela errada é **silenciosamente
+> ignorada**: seus testes rodam sem nenhuma das opções.
+
+O `--strict-config` acima ajuda justamente nisso: faz o pytest falhar em vez de ignorar
+chaves de configuração desconhecidas.
 
 ### Mypy
 
@@ -202,7 +212,7 @@ disallow_untyped_defs = false
 
 ```toml
 [dependency-groups]
-dev  = ["ruff>=0.8", "mypy>=1.10", "pytest>=9.0"]
+dev  = ["ruff>=0.8", "mypy>=1.10", "pytest>=8.0"]
 docs = ["mkdocs>=1.6", "mkdocs-material>=9.5"]
 
 test = [
@@ -304,7 +314,7 @@ exclude = [
 dev = [
   "ruff>=0.8",
   "mypy>=1.10",
-  "pytest>=9.0",
+  "pytest>=8.0",
   "pytest-cov>=5.0",
   "pre-commit>=3.7",
   "types-requests",
@@ -339,10 +349,10 @@ quote-style = "double"
 indent-style = "space"
 
 # -------------------------
-# Pytest (native TOML types)
+# Pytest
 # -------------------------
-[tool.pytest]
-minversion = "9.0"
+[tool.pytest.ini_options]
+minversion = "8.0"
 addopts = ["-ra", "--strict-config", "--strict-markers"]
 testpaths = ["tests"]
 xfail_strict = true

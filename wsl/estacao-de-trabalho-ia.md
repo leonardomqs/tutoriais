@@ -2,7 +2,7 @@
 titulo: "Estação de trabalho de IA no Windows 11"
 tags: [wsl, windows, docker, gpu, cuda, dev-drive]
 nivel: avancado
-atualizado: 2026-05-05
+atualizado: 2026-08-21
 ---
 
 # Estação de trabalho de IA no Windows 11
@@ -14,71 +14,91 @@ Configuração de alta performance com **Dev Drive (ReFS)**, **WSL2**, **Docker*
 
 ---
 
-## 1. Infraestrutura de Armazenamento (O Alicerce)
-O objetivo é garantir que toda a leitura/escrita pesada (IOPS) ocorra no sistema de arquivos **ReFS**, otimizado para desenvolvimento, poupando o disco do sistema (C:).
+## 1. Infraestrutura de armazenamento (o alicerce)
 
-Vamos partir da premissa de que temos um Disco **D:**, um NVMe secundário, enquanto o sistema está na unidade **C:** 
+O objetivo é garantir que toda a leitura/escrita pesada (IOPS) ocorra no sistema de
+arquivos **ReFS**, otimizado para desenvolvimento, poupando o disco do sistema (C:).
 
-#### Passo 1: Zerar o Disco 0 novamente (O "Undo")
-1. Abra o **Prompt de Comando (CMD)** ou PowerShell como **Administrador**.
-2. Digite ``diskpart`` e Enter.
-3. ``select disk 0`` (Confirme se é o de ~465GB).
-4. clean
-   * Pronto, as duas partições que você criou sumiram e o disco voltou a ser um bloco de espaço não alocado.
-5. ``exit``
+Premissa: um Disco **D:**, NVMe secundário, com o Windows instalado na unidade **C:**.
 
-#### Passo 2: Criar o Dev Drive (Modo "Full Power")
-Agora, sem a divisão, vamos usar o espaço todo.
+> ⚠️ Os passos de 1.1 **apagam tudo** que estiver no disco secundário. Confirme pelo
+> tamanho que é o disco certo e que não há nada a recuperar nele.
 
-1. Vá em **Configurações > Armazenamento > Discos e volumes** (aquela tela moderna).
-2. O Disco 0 vai aparecer como "Não inicializado". Inicialize-o como **GPT**.
-3. Clique em **"Criar Unidade de Desenvolvimento"**.
-4. Na hora de definir o tamanho, arraste a barra para o **máximo total** disponível.
-5. Defina a letra como **D:** (ou a que preferir) e o rótulo como "DevDrive".
- ---
+### 1.1. Limpar o disco secundário
 
-#### E depois? (Otimização do Ambiente)
-Assim que você terminar de formatar esse "super disco", ele estará pronto. Como prometido, aqui está o que você deve fazer em seguida para garantir que o Python e seus projetos usem essa velocidade extra automaticamente:
+Necessário apenas se o disco já tiver partições. Se ele já estiver como espaço não
+alocado, pule para a etapa 1.2.
 
-#### Mover os Caches do PIP e HuggingFace 
-Por padrão, o Python salva downloads temporários no seu disco C: (dentro de AppData). Vamos mudar isso para o D: para economizar espaço no sistema e ganhar velocidade.
+1. Abra o **Prompt de Comando** ou o **PowerShell** como **Administrador**.
+2. Entre no utilitário de disco:
 
-* Crie uma pasta D:\Cache e dentro dela D:\Cache\Pip e D:\Cache\HuggingFace.
-* No Windows, procure por "Editar as variáveis de ambiente do sistema".
-* Clique em "Variáveis de Ambiente".
-* Na parte de cima (Variáveis de usuário), clique em "Novo" e adicione:
-   * Nome: ``PIP_CACHE_DIR`` | Valor: ``D:\Cache\Pip``
-   * Nome: ``HF_HOME ``| Valor: ``D:\Cache\HuggingFace``
+   ```powershell
+   diskpart
+   ```
 
-Isso garante que, quando você baixar gigabytes de modelos ou bibliotecas, tudo vá direto para o seu disco rápido.
+3. Já dentro do `diskpart`:
 
+   ```text
+   select disk 0     <- confirme pelo tamanho (~465 GB) antes de continuar
+   clean
+   exit
+   ```
 
-### 1.1. Configuração do Dev Drive
-1.  Acesse **Configurações > Sistema > Armazenamento > Configurações Avançadas > Discos e Volumes**.
-2.  Exclua qualquer volume existente no **Disco 0** (NVMe secundário).
-3.  Selecione "Criar uma Unidade de Desenvolvimento" (**Dev Drive**).
-4.  **Configurações Obrigatórias:**
-    * Letra: **D:**
-    * Sistema de Arquivos: **ReFS**
-    * Tamanho: Máximo disponível.
+Ao final, o disco volta a ser um único bloco de espaço não alocado.
+
+### 1.2. Criar o Dev Drive
+
+1. Acesse **Configurações → Sistema → Armazenamento → Configurações avançadas de
+   armazenamento → Discos e volumes**.
+2. Se o disco aparecer como "Não inicializado", inicialize-o como **GPT**.
+3. Clique em **"Criar unidade de desenvolvimento"**.
+4. Configure:
+
+   | Opção | Valor |
+   | --- | --- |
+   | Letra | **D:** (ou a de sua preferência) |
+   | Sistema de arquivos | **ReFS** |
+   | Tamanho | O máximo disponível |
+   | Rótulo | `DevDrive` |
+
+### 1.3. Redirecionar os caches do pip e do Hugging Face
+
+Por padrão o Python grava downloads temporários no C:, dentro de `AppData`. Apontar esses
+caches para o Dev Drive economiza espaço no sistema e acelera as instalações — o que pesa
+bastante quando você baixa gigabytes de modelos.
+
+1. Crie as pastas `D:\Cache\Pip` e `D:\Cache\HuggingFace`.
+2. No Windows, procure por **"Editar as variáveis de ambiente do sistema"**.
+3. Clique em **Variáveis de Ambiente**.
+4. Em **Variáveis de usuário**, clique em **Novo** e adicione:
+
+   | Nome | Valor |
+   | --- | --- |
+   | `PIP_CACHE_DIR` | `D:\Cache\Pip` |
+   | `HF_HOME` | `D:\Cache\HuggingFace` |
 
 ---
 
-## 2. Sistema Operacional: WSL (Ubuntu 24.04)
+## 2. Sistema operacional: WSL (Ubuntu 24.04)
+
 Instalação do Linux e migração física para o disco rápido.
 
 ### 2.1. Instalação
-No PowerShell (Admin):
+
+No PowerShell (como Administrador):
+
 ```powershell
 wsl --install
 ```
 
-# Se a janela do Ubuntu não abrir, instale o "Ubuntu 24.04 LTS" pela Microsoft Store.
+> Se a janela do Ubuntu não abrir sozinha, instale o **Ubuntu 24.04 LTS** pela Microsoft Store.
 
+### 2.2. Migração para o Dev Drive (crítico)
 
-## 2.2. Migração para Dev Drive (Crítico)
+Por padrão o Linux fica no `C:`. Estes comandos movem a distro para o `D:` (ReFS):
 
-Por padrão, o Linux fica no `C:`. Execute estes comandos para movê-lo para o `D:` (ReFS):
+> ⚠️ O passo 4 usa `wsl --unregister`, que **apaga a distro e tudo que estiver dentro dela**.
+> Só execute depois de confirmar que o `.tar` do passo 3 foi gerado corretamente.
 
 ```powershell
 # 1. Parar o WSL
@@ -100,23 +120,23 @@ wsl --import Ubuntu-24.04 D:\WSL D:\ubuntu-bkp.tar
 del D:\ubuntu-bkp.tar
 ```
 
----
-
-## 2.3. Correção de Usuário e Systemd
+### 2.3. Correção de usuário e systemd
 
 A importação reseta o usuário para `root`. Para corrigir:
 
 1. Acesse o WSL:
+
    ```bash
    wsl -d Ubuntu-24.04
    ```
 
 2. Edite a configuração:
+
    ```bash
    nano /etc/wsl.conf
    ```
 
-3. Insira (substituindo `seu_usuario`):
+3. Insira, substituindo `seu_usuario`:
 
    ```ini
    [boot]
@@ -127,120 +147,93 @@ A importação reseta o usuário para `root`. Para corrigir:
    ```
 
 4. Reinicie o WSL:
+
    ```powershell
    wsl --shutdown
    ```
 
 ---
 
-## 3. Motor de Containers: Docker Desktop
+## 3. Motor de containers: Docker Desktop
 
-Embora o instalador do Docker Desktop coloque os arquivos de programa (binários) no Disco C: por padrão, o que realmente consome espaço e precisa de velocidade são as imagens e containers. Vamos configurar para que esse "motor" rode inteiramente no seu Dev Drive (D:).
+O instalador do Docker Desktop coloca os binários no C: por padrão, e isso não é problema.
+O que consome espaço e precisa de velocidade são as **imagens e containers** — é esse
+"motor" que vamos mover para o Dev Drive.
 
-Siga este roteiro para garantir que o Docker aproveite o ReFS do seu Disco 0.
-### 3.1 Instalação 
+### 3.1. Preparar o terreno
 
-#### Passo 1: Preparar o Terreno
-Antes de instalar, vamos criar a pasta onde o "cérebro" do Docker vai morar.
+Antes de instalar, crie a pasta onde os dados do Docker vão morar:
 
-1. Abra o Explorador de Arquivos no seu **DevDrive (D:)**.
-2. Crie uma nova pasta chamada Docker.
-   * Caminho final: D:\Docker
+1. Abra o Explorador de Arquivos no seu **Dev Drive (D:)**.
+2. Crie uma pasta chamada `Docker`. Caminho final: `D:\Docker`.
 
-#### Passo 2: Instalação Padrão (mas com atenção)
+### 3.2. Instalar
+
 1. Baixe o **Docker Desktop for Windows** no site oficial.
 2. Execute o instalador.
-3. Tela de Configuração:
-   * Use **WSL 2 instead of Hyper-V (Marcado)**: Isso é essencial. É o que vai permitir que o Docker use o seu Ubuntu e o kernel Linux leve, em vez de criar máquinas virtuais pesadas antigas. Isso é crucial para a performance
-   * **Allow Windows Containers... (Desmarcado)**: Mantenha desmarcado. Você vai desenvolver em Linux (Python, IA), então não precisa de containers nativos de Windows Server (que são usados para .NET antigo).
-   * Add **shortcut (Marcado)**: Apenas cria o atalho, sem problemas.
-4. Ao final, o instalador vai pedir para fazer **Log off** do Windows. Faça isso e entre novamente.
+3. Na tela de configuração:
 
-Neste momento, o Docker estará rodando, mas ele criou o disco de dados dele no padrão (Disco C:). Não baixe nada ainda! Vamos movê-lo imediatamente.
+   | Opção | Estado | Por quê |
+   | --- | --- | --- |
+   | Use WSL 2 instead of Hyper-V | ✅ Marcado | Faz o Docker usar seu Ubuntu e o kernel Linux leve, em vez de VMs pesadas. É o que garante a performance. |
+   | Allow Windows Containers | ❌ Desmarcado | Você vai desenvolver em Linux; containers nativos de Windows Server só servem para .NET antigo. |
+   | Add shortcut to desktop | ✅ Marcado | Só cria o atalho. |
 
-#### Passo 3: O "Move" Estratégico (Levando para o Dev Drive)
-Agora vamos dizer para o Docker: "Pare de usar o C: e use o meu ReFS no D:".
+4. Ao final, o instalador pede para fazer **log off** do Windows. Faça e entre novamente.
+5. Ao abrir, aceite os termos de serviço. Se pedir login, pode pular (**Skip**).
 
-1. Abra o **Docker Desktop** (aceite os termos, pule o login se quiser).
-2. Clique no ícone de **Engrenagem** (Settings) no topo direito.
-3. No menu lateral, vá em *Resources*.
-4. Procure a seção **Disk image location**.
-   * Você verá que ele está apontando para `C:\Users\<seu_usuario>\AppData...`.
-5. Clique em **Browse** e selecione aquela pasta que criamos: D:\Docker.
-6. Clique no botão **Apply & Restart**.
+> ✋ **Pare aqui.** Neste momento o Docker já criou o disco de dados dele no C:.
+> Não baixe nenhuma imagem ainda — mova o motor primeiro, na etapa 3.3.
 
-**O que acontece agora?** O Docker vai desligar o subsistema, pegar o arquivo de disco virtual (`ext4.vhdx`) que ele criou no C:, movê-lo fisicamente para o `D:\Docker` e ligar novamente.
-   * **Ganho**: A partir de agora, quando você fizer um docker pull python, os gigabytes serão gravados no seu SSD Kingston (D:), usando a tecnologia de clonagem de blocos do ReFS.
+### 3.3. Mover o motor para o Dev Drive
 
-#### Passo 4: Conectar com seu Ubuntu (Integração)
-O Docker roda isolado. Precisamos avisar que o seu **Ubuntu-24.04** tem permissão para usar o Docker.
-
-1. Ainda nas configurações (**Settings**) do Docker Desktop.
-2. Vá em **Resources** > **WSL Integration**.
-3. Marque a caixa: **"Enable integration with my default WSL distro"**.
-4. Logo abaixo, se aparecer a opção **Ubuntu-24.04**, ative a chave (switch) para deixá-la azul.
+1. No **Docker Desktop**, clique na engrenagem ⚙️ (**Settings**), no canto superior direito.
+2. No menu lateral, vá em **Resources**.
+3. Localize **Disk image location** — ele deve estar apontando para
+   `C:\Users\<seu_usuario>\AppData...`.
+4. Clique em **Browse** e selecione a pasta `D:\Docker`.
 5. Clique em **Apply & Restart**.
 
-#### Passo 5: Teste Final (A Prova de Fogo)
-Vamos ver se toda essa arquitetura (Windows -> WSL -> Docker -> Dev Drive) está conversando.
+O Docker desliga o subsistema, move o disco virtual (`ext4.vhdx`) fisicamente para
+`D:\Docker` e religa. Aguarde a luz verde voltar no rodapé do aplicativo.
 
-1. Abra seu terminal do **Ubuntu** (wsl).
-2. Digite:
+**Ganho:** a partir daqui, todo `docker pull` grava os gigabytes no NVMe do Dev Drive,
+usando a clonagem de blocos do ReFS.
+
+### 3.4. Conectar o Docker ao Ubuntu (WSL Integration)
+
+O Docker roda isolado — é preciso autorizar sua distro a usá-lo.
+
+1. Ainda em **Settings**, vá em **Resources** → **WSL Integration**.
+2. Marque **"Enable integration with my default WSL distro"**.
+3. Em *"Enable integration with additional distros"*, localize **Ubuntu-24.04** e ative a
+   chave ao lado (fica azul).
+4. Clique em **Apply & Restart**.
+
+### 3.5. Teste final
+
+Confirma toda a cadeia: Windows → WSL → Docker → Dev Drive.
+
+1. Abra o terminal do Ubuntu (digite `wsl` no PowerShell).
+2. Rode:
+
    ```bash
    docker run hello-world
    ```
-3. Se aparecer a mensagem *"Hello from Docker!"*, a comunicação está perfeita.
 
+Se aparecer **"Hello from Docker!"**, a comunicação está correta.
 
-**Dica de Pro**: Vá na pasta `D:\Docker` pelo Windows Explorer. Você verá um arquivo gigante lá (provavelmente `docker-desktop-data.vhdx`). Esse é o arquivo que vai crescer conforme você trabalha, poupando seu disco C: e voando baixo no ReFS.
+> **Dica:** abra `D:\Docker` pelo Explorador de Arquivos. O arquivo grande que está lá
+> (`docker-desktop-data.vhdx`) é o que vai crescer conforme você trabalha — no disco rápido,
+> e não no C:.
 
+Neste ponto você tem:
 
-Após reiniciar o computador, o Docker Desktop deve iniciar automaticamente (ou você pode abri-lo pelo Menu Iniciar). Ele vai te pedir para aceitar os termos de serviço (Service Agreement) — pode aceitar. Se ele pedir para fazer login, pode pular (Skip) por enquanto se não tiver conta.
+* **SO:** Windows 11 (Disco C — NVMe 1)
+* **Dados e projetos:** Dev Drive ReFS (Disco D — NVMe 0)
+* **Ambiente:** Ubuntu 24.04 integrado ao Docker, tudo rodando no Dev Drive
 
-
-**Pare!** ✋ Antes de rodar qualquer coisa, vamos fazer a configuração mais importante para salvar seu espaço e ganhar performance.
-
-### 3.2 Movendo para o DevDrive
-
-#### 1. Mover o "Motor" do Docker para o DevDrive (D:)
-Por padrão, o Docker acabou de criar um arquivo de disco no seu C:. Vamos mudá-lo para o D: agora.
-
-1. Abra o **Docker Desktop**.
-2. Clique na **Engrenagem** ⚙️ (Settings) no canto superior direito.
-3. No menu lateral esquerdo, clique em **Resources**.
-4. Procure a opção **"Disk image location".**
-5. Ela deve estar mostrando algo como `C:\Users\<seu_usuario>\AppData...`.
-6. Clique no botão **Browse** e selecione a pasta D:\Docker (se você não criou essa pasta ainda, crie agora dentro do seu DevDrive).
-7. Clique em **Apply & Restart**.
-
-*O Docker vai levar alguns segundos para mover o arquivo e reiniciar. Aguarde a luz verde no rodapé do aplicativo voltar.*
-
-#### 2. Conectar o Docker ao seu Linux (WSL Integration)
-Agora o Docker está rodando no disco rápido, mas o seu Ubuntu ainda não sabe que pode usá-lo.
-
-1. Ainda nas Configurações (⚙️) do Docker Desktop.
-2. Vá em **Resources** > **WSL Integration**.
-3. Garanta que a opção **"Enable integration with my default WSL distro"** está marcada.
-4. Logo abaixo, em "Enable integration with additional distros", procure o seu **Ubuntu-24.04**.
-5. **Ative a chave (switch)** ao lado dele para ficar azul.
-6. Clique em **Apply & Restart**.
-
-#### 3. O Teste Final (A Prova Real)
-Agora vamos confirmar se tudo funcionou: Windows, Linux e Docker no disco de alta performance.
-
-1. Abra seu terminal do Ubuntu (digite `wsl` no PowerShell).
-2. Rode o comando clássico de teste:
-
-```bash
-docker run hello-world
-```
-Se aparecer uma mensagem começando com **"Hello from Docker!"**, parabéns! 🚀
-
-Você tem agora uma estação de trabalho profissional para IA:
-
-* **SO**: Windows 11 (Disco C - NVMe 1)
-* **Dados e Projetos**: Dev Drive ReFS (Disco D - NVMe 0)
-* **Ambiente**: Ubuntu 24.04 integrado ao Docker, tudo rodando no Dev Drive.
+---
 
 ## 4. Ambiente de IA (Python e GPU)
 
@@ -307,7 +300,9 @@ print(f"Modelo: {torch.cuda.get_device_name(0)}")
 
 ## 5. IDE: VS Code + WSL (Modo Remoto)
 
-Como programar no Windows usando o **“cérebro” do Linux**.
+Como programar no Windows usando o **"cérebro" do Linux**.
+
+### 5.1. Conectar ao WSL
 
 1. Abra o **VS Code** no Windows
 2. Instale a extensão **WSL** (Microsoft)
@@ -315,7 +310,7 @@ Como programar no Windows usando o **“cérebro” do Linux**.
    - Clique no botão azul no canto inferior esquerdo (`><`)
    - Selecione **"Connect to WSL"**
 
-### Extensões no Lado Remoto
+### 5.2. Extensões no lado remoto
 
 Na aba de extensões, instale:
 - **Python**
@@ -325,12 +320,12 @@ Na aba de extensões, instale:
 
 ---
 
-### 5.1. Usando Jupyter Notebooks
+### 5.3. Usando Jupyter Notebooks
 
 1. Abra um arquivo `.ipynb`
 2. No canto superior direito, clique em **Select Kernel**
 3. Escolha o kernel do Linux:
-   ```
+   ```text
    ai-lab (Python 3.10.x) /home/seu_usuario/miniconda3/envs/ai-lab/bin/python
    ```
 
@@ -342,6 +337,6 @@ Na aba de extensões, instale:
 |---------------|-----------------------------------------|---------------------|
 | Windows 11    | Disco C: (NVMe 1)                       | NTFS                |
 | Linux (Ubuntu)| `D:\WSL\ext4.vhdx`                      | ReFS (Dev Drive)    |
-| Docker Data   | `D:\Docker\disk.vhdx`                   | ReFS (Dev Drive)    |
+| Docker Data   | `D:\Docker\docker-desktop-data.vhdx`    | ReFS (Dev Drive)    |
 | Projetos/Git  | `\\wsl$\Ubuntu-24.04\home\seu_usuario`  | ReFS (Dev Drive)    |
 | Processamento | NVIDIA RTX 3050                         | CUDA (Pass-through) |
