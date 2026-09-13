@@ -2,7 +2,7 @@
 titulo: "Comandos essenciais do Git"
 tags: [git, referencia]
 nivel: iniciante
-atualizado: 2026-08-21
+atualizado: 2026-09-13
 ---
 
 # Comandos essenciais do Git
@@ -223,6 +223,34 @@ git <comando> --help
 
 ---
 
-## Resumo visual
+## Resumo
 
-![Infográfico com os comandos do Git agrupados em básicos, sincronização, branches, desfazer alterações, avançado e ajuda](assets/comandos-git-infografico.jpg)
+Todos os comandos acima em uma tela, para consulta rápida:
+
+| Grupo | Comando | O que faz |
+| --- | --- | --- |
+| **Básicos** | `git init` | Cria um novo repositório |
+| | `git clone <url>` | Copia um repositório existente |
+| | `git status` | Mostra as alterações pendentes |
+| | `git add <arquivo>` | Adiciona alterações à área de preparação |
+| | `git commit -m "mensagem"` | Salva as alterações preparadas |
+| **Sincronização** | `git pull` | Traz alterações do repositório remoto |
+| | `git push` | Envia alterações ao repositório remoto |
+| | `git remote add <nome> <url>` | Conecta o repositório local a um remoto |
+| | `git fetch` | Baixa alterações sem mesclá-las |
+| **Branches** | `git branch` | Lista as branches |
+| | `git branch <nome>` | Cria uma branch |
+| | `git switch <nome>` | Muda de branch |
+| | `git switch -c <nome>` | Cria a branch e já muda para ela |
+| | `git merge <nome>` | Mescla as alterações de outra branch |
+| | `git branch -d <nome>` | Exclui uma branch já mesclada |
+| **Desfazer** | `git restore <arquivo>` | Descarta as edições não commitadas |
+| | `git restore --staged <arquivo>` | Tira o arquivo da área de preparação |
+| | `git revert <id-commit>` | Cria um commit que anula outro |
+| **Avançado** | `git log --oneline --graph --all` | Histórico resumido e visual |
+| | `git stash` | Guarda o trabalho em andamento sem commitar |
+| | `git stash pop` | Restaura o que foi guardado |
+| | `git rebase <branch>` | Reaplica os commits sobre outra base |
+| | `git cherry-pick <id-commit>` | Aplica um commit específico em outra branch |
+| **Ajuda** | `git help --all` | Lista todas as opções do manual |
+| | `git <comando> --help` | Abre a ajuda de um comando específico |
