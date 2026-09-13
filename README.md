@@ -60,6 +60,7 @@ exatamente onde o texto falhou.
 | --- | --- |
 | [Comandos essenciais](git/comandos-essenciais.md) | Referência rápida: básicos, sincronização, branches, desfazer alterações e comandos avançados (`stash`, `rebase`, `cherry-pick`). |
 | [Configurar Git no Linux com SSH](git/configuracao-linux-ssh.md) | Instalação, identidade dos commits, geração de chave `ed25519` e conexão com o GitHub via SSH. |
+| [Revisar um Pull Request com o `gh`](git/revisar-pull-request.md) | As cinco decisões de uma revisão pelo terminal: trazer o código do fork, verificar se funciona, o veredito e o merge — com a armadilha dos testes mockados. |
 
 ### 🗄️ Banco de dados
 
